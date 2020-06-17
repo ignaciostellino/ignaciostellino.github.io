@@ -2,6 +2,7 @@
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <!-- we import arjs version without NFT but with marker + location based support -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
   <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs>
       <a-marker type="pattern" url="smoothie-peque/pattern-smoothie-peque.patt">
@@ -10,10 +11,10 @@
           scale="0.02 0.02 0.02"
 		  rotation="-90 0 0"
           gltf-model="Water/slim.glb"
+		  animation-mixer="clip: CINEMA_4D_Main; loop: repeat"
         ></a-entity>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>
-

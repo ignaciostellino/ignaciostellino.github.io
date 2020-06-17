@@ -1,0 +1,52 @@
+<html>
+  <head>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+	 AFRAME.registerComponent('play-on-scan', 
+		{ 
+		  init: function () { 
+
+			var el = this.el; 
+			var currentVideo;
+			el.sceneEl.addEventListener('markerFound', function (ev) { // 
+			  currentVideo = ev.srcElement.querySelector("a-video");
+			  if(currentVideo && currentVideo.getAttribute("src")){
+				var video_el = document.querySelector(currentVideo.getAttribute("src"));
+				video_el.play();
+			  }
+			}); 
+
+			el.sceneEl.addEventListener('markerLost', function (ev) { // 
+			  var childVideo = ev.srcElement.querySelector("a-video");
+			  if(childVideo && childVideo.getAttribute("src")){
+				var video_el = document.querySelector(el.getAttribute("src"));
+				video_el.pause();
+				video_el.currentTime = 0;
+			  }
+			});
+		  } 
+		});
+    </script>
+  </head>
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+	  <a-assets>
+		<video id="vid" preload="auto" autoplay loop="true" src="Water/slim.mp4" crossorigin webkit-playsinline playsinline controls>
+      </a-assets>
+      <a-marker type="pattern" url="smoothie-peque/pattern-smoothie-peque.patt">
+		<a-video play-on-scan src="#vid" width="8" height="4.5" position="0 0 0" rotation="-90 0 0"></a-video>
+        <!-- <a-entity
+          position="0 0 0"
+          scale="0.02 0.02 0.02"
+		  rotation="-90 0 0"
+          gltf-model="Water/slim.glb"
+        ></a-entity>-->
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
