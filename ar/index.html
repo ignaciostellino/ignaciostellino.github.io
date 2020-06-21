@@ -26,7 +26,8 @@
             });
         </script>
 		<script>
-		  window.addEventListener('click', function () {
+		  window.addEventListener('click', function (event) {
+			event.preventDefault();
 			var video = document.querySelector('#vid');
 			if (video.paused == true) {
 			  video.play();
